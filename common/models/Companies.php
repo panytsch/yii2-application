@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "companies".
@@ -22,6 +23,11 @@ use yii\db\Expression;
  */
 class Companies extends ActiveRecord
 {
+
+    /**
+     * @var UploadedFile
+     */
+    public $file;
 
     public function behaviors()
     {
@@ -51,8 +57,10 @@ class Companies extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'email', 'logo'], 'required'],
+//            [['name', 'email', 'logo'], 'required'],
+            [['name', 'email'], 'required'],
             [['updated_at', 'created_at'], 'safe'],
+            [['file'], 'file'],
             [['name', 'website'], 'string', 'max' => 300],
             [['email'], 'string', 'max' => 100],
             [['logo'], 'string', 'max' => 200],
@@ -83,4 +91,5 @@ class Companies extends ActiveRecord
     {
         return $this->hasMany(Employers::className(), ['company_id' => 'id']);
     }
+
 }

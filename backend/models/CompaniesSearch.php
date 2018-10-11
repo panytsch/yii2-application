@@ -31,5 +31,7 @@ class CompaniesSearch extends Companies
         if (!$this->validate()){
             return $dataProvider;
         }
+
+        return $dataProvider;
     }
 }
