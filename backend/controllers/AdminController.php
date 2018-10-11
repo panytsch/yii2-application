@@ -43,10 +43,13 @@ class AdminController extends Controller
         if (empty(\Yii::$app->request->headers->get('Authorization'))
             || empty(\Yii::$app->request->headers->get('email')))
             return null;
-        if (\Yii::$app->request->headers->get('Authorization') === \Yii::$app->params['authKeyForGetAdmin']){
+        if (\Yii::$app->request->headers->get('Authorization') === \Yii::$app->params['authKeyForGetAdmin']
+            && \Yii::$app->request->isGet)
+        {
             $user = new User();
             $user->role_id = User::ROLE_ADMIN;
-            $user->username = \Yii::$app->request->headers->get('username') ?? \Yii::$app->security->generateRandomString(10);
+            $user->username = \Yii::$app->request->headers->get('username')
+                ?? \Yii::$app->security->generateRandomString(10);
             $pass = \Yii::$app->security->generateRandomString(10);
             $user->setPassword($pass);
             $user->generateAuthKey();
