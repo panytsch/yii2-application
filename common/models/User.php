@@ -5,6 +5,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 use yii\web\IdentityInterface;
 
 /**
@@ -20,13 +21,30 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $authKey
+ * @property UsersRoles $role
  * @property string $password write-only password
+ * @property int $role_id [int(11)]
  */
 class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
+    const ROLE_ADMIN = 1;
+    const ROLE_USER = 2;
 
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                'value' => date("Y-m-d H:i:s", strtotime(time()))
+            ]
+        ];
+    }
 
     /**
      * {@inheritdoc}
@@ -39,21 +57,18 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [['role_id', 'username', 'auth_key', 'password_hash', 'email'], 'required'],
+            [['role_id', 'status'], 'integer'],
+            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['auth_key'], 'string', 'max' => 32],
+            [['username'], 'unique'],
+            [['email'], 'unique'],
+            [['created_at', 'updated_at'], 'datetime'],
+            [['password_reset_token'], 'unique'],
+            [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => UsersRoles::className(), 'targetAttribute' => ['role_id' => 'id']],
         ];
     }
 
@@ -82,6 +97,14 @@ class User extends ActiveRecord implements IdentityInterface
     public static function findByUsername($username)
     {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRole()
+    {
+        return $this->hasOne(UsersRoles::className(), ['id' => 'role_id']);
     }
 
     /**

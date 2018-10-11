@@ -28,6 +28,11 @@ class m181011_170921_add_table_users_roles extends Migration
             $this->table,
             'id'
         );
+        $this->batchInsert(
+            $this->table,
+            ['role_name'],
+            [['Admin'], ['User']]
+        );
     }
 
     /**
