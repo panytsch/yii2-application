@@ -53,12 +53,18 @@ class LoginForm extends Model
     /**
      * Logs in a user using the provided username and password.
      *
+     * @param bool $typeAdmin
      * @return bool whether the user is logged in successfully
      */
-    public function login()
+    public function login($typeAdmin = false)
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            $this->_user = null;
+            if (empty($this->getUser($typeAdmin))) {
+                return false;
+            } else {
+                return Yii::$app->user->login($this->_user, $this->rememberMe ? 3600 * 24 * 30 : 0);
+            }
         }
         
         return false;
@@ -67,14 +73,25 @@ class LoginForm extends Model
     /**
      * Finds user by [[username]]
      *
+     * @param bool $typeAdmin
      * @return User|null
      */
-    protected function getUser()
+    protected function getUser($typeAdmin = false)
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+            if ($typeAdmin) {
+                $this->_user = User::find()
+                    ->where(['username' => $this->username, 'status' => User::STATUS_ACTIVE])
+                    ->andWhere(['role_id' => User::ROLE_ADMIN])
+                    ->one()
+                ;
+            } else {
+                $this->_user = User::find()
+                    ->where(['username' => $this->username, 'status' => User::STATUS_ACTIVE])
+                    ->one();
+                ;
+            }
         }
-
         return $this->_user;
     }
 }

@@ -41,7 +41,7 @@ class User extends ActiveRecord implements IdentityInterface
                     ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
                 ],
-                'value' => date("Y-m-d H:i:s", strtotime(time()))
+                'value' => new Expression('NOW()'),
             ]
         ];
     }
