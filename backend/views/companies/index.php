@@ -30,7 +30,10 @@ echo \common\widgets\Alert::widget();
                             'header' => 'Logo',
                             'content' => function ($model) {
                                 /** @var $model \backend\models\CompaniesSearch */
-                                return Html::tag('img', null,['src' => '/'.$model->logo, 'width' => 75]);
+                                return $model->logo
+                                    ? Html::tag('img', null,['src' => '/'.$model->logo, 'width' => 75])
+                                    : '(empty)'
+                                ;
                             }
                         ],
                         'name',
