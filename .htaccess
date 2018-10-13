@@ -1,14 +1,31 @@
-<IfModule mod_rewrite.c>
-    Options +FollowSymlinks
-    RewriteEngine On
-</IfModule>
+#<IfModule mod_rewrite.c>
+#    Options +FollowSymlinks
+#    RewriteEngine On
+#</IfModule>
+#
+#<IfModule mod_rewrite.c>
+#    RewriteCond %{REQUEST_URI} ^/.*
+#    RewriteRule ^(.*)$ frontend/web/$1 [L]
+#
+#    RewriteCond %{REQUEST_URI} !^/frontend/web/
+#    RewriteCond %{REQUEST_FILENAME} !-f [OR]
+#    RewriteCond %{REQUEST_FILENAME} !-d
+#    RewriteRule ^.*$ frontend/web/index.php
+#</IfModule>
+  RewriteEngine On
+#  IndexIgnore */*
+  RewriteRule ^admin(.*)?$ /backend/web/$1 [L,PT]
+  RewriteRule ^([^/].*)?$ /frontend/web/$1
+#</IfModule>
 
-<IfModule mod_rewrite.c>
-    RewriteCond %{REQUEST_URI} ^/.*
-    RewriteRule ^(.*)$ frontend/web/$1 [L]
 
-    RewriteCond %{REQUEST_URI} !^/frontend/web/
-    RewriteCond %{REQUEST_FILENAME} !-f [OR]
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^.*$ frontend/web/index.php
-</IfModule>
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# dont call php for originals
+#RewriteCond %{REQUEST_URI} !^/uploads [OR]
+#RewriteCond %{REQUEST_URI} !\.0\.[a-zA-Z]+$
+
+# dont call php if its not uploads call
+#RewriteCond %{REQUEST_URI} ^/uploads [OR]
+#RewriteCond %{REQUEST_URI} !\.(jpeg|jpg|png|ico)$

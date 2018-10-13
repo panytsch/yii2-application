@@ -14,8 +14,14 @@ use yii\widgets\ActiveForm;
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
+    <div class="row">
+        <div class="col-md-6">
+            <img src="<?=$model->logo?>" alt="">
+        </div>
+    </div>
     <?= $form->field($model, 'name') ?>
     <?= $form->field($model, 'email') ?>
+    <?= $form->field($model, 'logo') ?>
     <?= $form->field($model, 'file')->input('file') ?>
     <?= $form->field($model, 'updated_at') ?>
     <?= $form->field($model, 'created_at') ?>
