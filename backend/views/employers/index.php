@@ -4,8 +4,13 @@
  */
 
 use yii\grid\GridView;
+use yii\helpers\Html;
 
+echo \common\widgets\Alert::widget();
 ?>
+<div class="row">
+    <a href="/admin/employers/add" class="btn btn-success">Add Employer</a>
+</div>
 <div class="row">
     <div>
         <?php \yii\widgets\Pjax::begin(['id' => 'filters']); ?>
@@ -29,7 +34,18 @@ use yii\grid\GridView;
                             'format' => 'raw',
                             'header' => 'Company',
                             'value' => function (\backend\models\EmployersSearch $model) {
-                                return $model->company->name;
+                                return Html::a($model->company->name, ['companies/update', 'id' => $model->company_id]);
+                            }
+                        ],
+                        [
+                            'header' => 'Actions',
+                            'content' => function ($model) {
+                                /** @var $model \backend\models\EmployersSearch*/
+                                $actions = [
+                                    Html::a('Edit', ['update', 'id' => $model->id]),
+                                    Html::a('Delete', ['delete', 'id' => $model->id])
+                                ];
+                                return join('<br>', $actions);
                             }
                         ]
                     ],

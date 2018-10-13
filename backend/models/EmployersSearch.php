@@ -19,7 +19,7 @@ class EmployersSearch extends Employers
            'query' => $query,
            'sort' => [
                'defaultOrder' => [
-                   'name'=> SORT_ASC,
+                   'first_name'=> SORT_ASC,
                ]
            ],
            'pagination' => [
