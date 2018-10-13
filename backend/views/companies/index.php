@@ -4,8 +4,12 @@
  */
 
 use yii\grid\GridView;
-
+use yii\helpers\Html;
+echo \common\widgets\Alert::widget();
 ?>
+<div class="row">
+    <a href="/admin/companies/add" class="btn btn-success">Add Company</a>
+</div>
 <div class="row">
     <div>
         <?php \yii\widgets\Pjax::begin(['id' => 'filters']); ?>
@@ -20,8 +24,28 @@ use yii\grid\GridView;
                     ],
                     'columns' => [
                         'id',
+                        [
+                            'attribute' => 'logo',
+                            'format' => 'raw',
+                            'header' => 'Logo',
+                            'content' => function ($model) {
+                                /** @var $model \backend\models\CompaniesSearch */
+                                return Html::tag('img', null,['src' => '/'.$model->logo, 'width' => 75]);
+                            }
+                        ],
                         'name',
-                        'email'
+                        'email',
+                        [
+                            'header' => 'Actions',
+                            'content' => function ($model) {
+                                /** @var $model \backend\models\CompaniesSearch */
+                                $actions = [
+                                    Html::a('Edit', ['update', 'id' => $model->id]),
+                                    Html::a('Delete', ['delete', 'id' => $model->id])
+                                ];
+                                return join('<br>', $actions);
+                            }
+                        ]
                     ],
                 ]); ?>
             </div>

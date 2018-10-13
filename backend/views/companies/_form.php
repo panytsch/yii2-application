@@ -10,21 +10,24 @@ use yii\widgets\ActiveForm;
 <div class="index">
 
     <?php $form = ActiveForm::begin([
-        'action' => \yii\helpers\Url::to(['companies/update', 'id' => $model->id]),
+        'action' => \yii\helpers\Url::to([$model->isNewRecord ? 'add' : 'update', 'id' => $model->id]),
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
+    <?php
+    if (!empty($model->logo)){
+    ?>
     <div class="row">
         <div class="col-md-6">
-            <img src="<?=$model->logo?>" alt="">
+            <img src="/<?=$model->logo?>" width="200">
         </div>
     </div>
+    <?php
+    }
+    ?>
     <?= $form->field($model, 'name') ?>
     <?= $form->field($model, 'email') ?>
-    <?= $form->field($model, 'logo') ?>
     <?= $form->field($model, 'file')->input('file') ?>
-    <?= $form->field($model, 'updated_at') ?>
-    <?= $form->field($model, 'created_at') ?>
     <?= $form->field($model, 'website') ?>
 
     <div class="form-group">
