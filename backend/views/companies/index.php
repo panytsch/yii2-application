@@ -5,6 +5,10 @@
 
 use yii\grid\GridView;
 use yii\helpers\Html;
+
+$this->title = "Companies";
+$this->params['breadcrumbs'][] = $this->title;
+
 echo \common\widgets\Alert::widget();
 ?>
 <div class="row">

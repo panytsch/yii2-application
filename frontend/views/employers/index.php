@@ -6,7 +6,8 @@
 use yii\grid\GridView;
 use yii\helpers\Html;
 use frontend\models\EmployersSearch;
-
+$this->title = "Employers";
+$this->params['breadcrumbs'][] = $this->title;
 echo \common\widgets\Alert::widget();
 ?>
 <div class="row">

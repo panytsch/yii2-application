@@ -6,6 +6,10 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Companies */
 /* @var $form ActiveForm */
+$this->title = "{$model->name} Company";
+$this->params['breadcrumbs'][] = ['label' => 'Companies', 'url' => 'index'];
+$this->params['breadcrumbs'][] = $this->title;
+echo \common\widgets\Alert::widget();
 ?>
 <div class="index">
 

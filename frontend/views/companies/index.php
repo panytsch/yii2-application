@@ -7,6 +7,8 @@ use frontend\models\CompaniesSearch;
 use yii\grid\GridView;
 use yii\helpers\Html;
 echo \common\widgets\Alert::widget();
+$this->title = 'Companies';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">
     <div>
