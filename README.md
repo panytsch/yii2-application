@@ -24,5 +24,15 @@ Url: http://apka.local/admin/admin/get-new-admin <br>
 Headers: <br> Authorization => HBpFX1AwzAdl473RPxWq7sjU <br>
 email => email@adas.ua
 
+<br>
+<br>
 
+<h2> Apache </h2>
 
+<br>
+<br>
+
+Config your server to root project directory. .htaccess files worked here ^_^
+<br>
+Admin panel will be accessed with route '{host}/admin'
+<br>
