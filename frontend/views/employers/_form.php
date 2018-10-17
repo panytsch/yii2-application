@@ -20,8 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $form->field($model, 'last_name')->textInput(['readonly' => 'true']) ?>
     <?= $form->field($model, 'email')->textInput(['readonly' => 'true']) ?>
     <?= $form->field($model, 'phone')->textInput(['readonly' => 'true']) ?>
-    <?= $form->field($model, 'company_id')->textInput(['readonly' => 'true', 'value' => $model->company->name])->label('Company')
-    ?>
+    <div class="form-group">
+        <label class="control-label">Company</label><br>
+        <?= Html::a($model->company->name, ['companies/view', 'id' => $model->company_id], ['class' => 'btn btn-link'])?>
+    </div>
 
     <?php ActiveForm::end(); ?>
 
