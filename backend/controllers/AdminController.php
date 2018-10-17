@@ -65,7 +65,7 @@ class AdminController extends Controller
                     ]
                 ];
             } else {
-                $result = $user->errors;
+                return null;
             }
         }
         return $this->asJson($result);
