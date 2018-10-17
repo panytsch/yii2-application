@@ -18,7 +18,8 @@ class EmployersController extends BaseController
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel
         ]);
     }
 

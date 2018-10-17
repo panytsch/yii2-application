@@ -12,7 +12,10 @@ class CompaniesController extends BaseController
         $searchModel = new CompaniesSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 
-        return $this->render('index', ['dataProvider' => $dataProvider]);
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel
+        ]);
     }
 
     public function actionView(int $id)

@@ -57,7 +57,6 @@ class Companies extends ActiveRecord
     public function rules()
     {
         return [
-//            [['name', 'email', 'logo'], 'required'],
             [['name', 'email'], 'required'],
             [['updated_at', 'created_at'], 'safe'],
             [['file'], 'file'],

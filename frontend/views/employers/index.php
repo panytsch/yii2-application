@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $dataProvider \yii\data\ActiveDataProvider
+ * @var $searchModel EmployersSearch
  */
 
 use yii\grid\GridView;
@@ -17,6 +18,7 @@ echo \common\widgets\Alert::widget();
             <div class="table-responsive">
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
+                    'filterModel' => $searchModel,
                     'summary' => false,
                     'layout' => "{summary}\n{items}\n<div align='right'>{pager}</div>",
                     'tableOptions' => [
@@ -38,6 +40,7 @@ echo \common\widgets\Alert::widget();
                         ],
                         [
                             'header' => 'Actions',
+                            'filter' => Html::a('clear', ['index'], ['class' => 'btn btn-default']),
                             'content' => function (EmployersSearch $model) {
                                 $actions = [
                                     Html::a('View', ['view', 'id' => $model->id], ['class' => 'btn btn-info']),

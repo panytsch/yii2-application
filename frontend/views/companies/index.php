@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $dataProvider \yii\data\ActiveDataProvider
+ * @var $searchModel CompaniesSearch
  */
 
 use frontend\models\CompaniesSearch;
@@ -17,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="table-responsive">
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
+                    'filterModel' => $searchModel,
                     'summary' => false,
                     'layout' => "{summary}\n{items}\n<div align='right'>{pager}</div>",
                     'tableOptions' => [
@@ -39,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'email',
                         [
                             'header' => 'Actions',
+                            'filter' => Html::a('clear', ['index'], ['class' => 'btn btn-default']),
                             'content' => function (CompaniesSearch $model) {
                                 $actions = [
                                     Html::a('View', ['view', 'id' => $model->id], ['class' => 'btn btn-info']),

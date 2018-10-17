@@ -8,6 +8,17 @@ use yii\data\ActiveDataProvider;
 class CompaniesSearch extends Companies
 {
     /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['updated_at', 'created_at'], 'safe'],
+            [['name', 'website', 'email', 'name'], 'string', 'max' => 300],
+        ];
+    }
+
+    /**
      * @param array $params
      * @return ActiveDataProvider
      */
@@ -31,6 +42,11 @@ class CompaniesSearch extends Companies
         if (!$this->validate()){
             return $dataProvider;
         }
+
+        $query
+            ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'email', $this->email])
+        ;
 
         return $dataProvider;
     }
