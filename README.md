@@ -21,7 +21,7 @@ and with email header
 <br><br>
 <h4>Example:</h4>
 Url: http://apka.local/admin/admin/get-new-admin <br>
-Headers: <br> Authorization => HBpFX1AwzAdl473RPxWq7sjURkjnS4H5YGm60K3LmYFMnwYMATeaXMkt0zIWBjrHf1HkhE <br>
+Headers: <br> Authorization => ZmcrZVBDT09pZE0vK1JhRENMWFdpUHRoL2hsaVZuN3I3WlQ1M2FpODRZN1E4Z1ZQdk1aYVdnZHNDRVNNZ0hMYnRiaGFON3F4T21oVGlNYWo0N3BZUEZwUHRkTVd5ampYUXE2VWVBS0FoVnM9 <br>
 email => email@adas.ua
 
 <br>
