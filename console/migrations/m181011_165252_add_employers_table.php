@@ -36,7 +36,8 @@ class m181011_165252_add_employers_table extends Migration
             $this->table,
             'company_id',
             'companies',
-            'id'
+            'id',
+            'CASCADE'
         );
     }
 
